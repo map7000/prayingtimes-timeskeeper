@@ -22,12 +22,12 @@ import ru.mfilatov.prayingtimes.timeskeeper.model.aladhan.Method;
 import ru.mfilatov.prayingtimes.timeskeeper.model.aladhan.Timings;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class TimesRestControllerTest {
+class TimesRestControllerTest {
   @Autowired private TestRestTemplate restTemplate;
   @MockBean private AladhanRestApiClient client;
 
   @Test
-  public void testGetTimesByLocation() {
+  void testGetTimesByLocation() {
     // Set up test data
     String aladhanTime = LocalDate.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
     String timesKeeperTime = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));

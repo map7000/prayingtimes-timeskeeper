@@ -14,7 +14,7 @@ import ru.mfilatov.prayingtimes.timeskeeper.model.PrayingTimes;
 @RestController
 public class TimesRestController {
   @Autowired AladhanRestApiClient client;
-  private AladhanMapper mapper = Mappers.getMapper(AladhanMapper.class);
+  private final AladhanMapper mapper = Mappers.getMapper(AladhanMapper.class);
 
   @GetMapping("/getTimesByLocation/{country}/{city}/{method}")
   PrayingTimes getTimesByLocation(
@@ -25,7 +25,6 @@ public class TimesRestController {
             city,
             country,
             method);
-    var prayingTimes = mapper.timingsByCityPrayingTimes(aladhanTimes);
-    return prayingTimes;
+    return mapper.timingsByCityPrayingTimes(aladhanTimes);
   }
 }
