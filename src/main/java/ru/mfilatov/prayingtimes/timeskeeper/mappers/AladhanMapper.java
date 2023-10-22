@@ -1,3 +1,8 @@
+/*
+ * Copyright 2023 Mikhail Filatov
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 package ru.mfilatov.prayingtimes.timeskeeper.mappers;
 
 import java.time.LocalDate;
