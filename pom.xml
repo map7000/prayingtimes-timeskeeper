@@ -15,7 +15,6 @@
     <description>Praying times timekeeper</description>
     <properties>
         <java.version>20</java.version>
-        <sonar.organization>map7000</sonar.organization>
         <sonar.host.url>https://sonarcloud.io</sonar.host.url>
         <spring-cloud.version>2022.0.2</spring-cloud.version>
         <spotless.version>2.36.0</spotless.version>

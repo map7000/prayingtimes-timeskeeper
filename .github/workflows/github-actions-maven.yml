@@ -26,6 +26,5 @@ jobs:
         env:
           SONAR_TOKEN: ${{ secrets.SONARQUBE_TOKEN }}
         run: mvn verify sonar:sonar \
-          -Dsonar.host.url=${{ secrets.SONARQUBE_HOST }} \
           -Dsonar.organization=map7000 \
           -Dsonar.projectKey=map7000_timeskeeper
