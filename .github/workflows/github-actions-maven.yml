@@ -23,7 +23,9 @@ jobs:
       - name: Format code following Google Style guidelines
         uses: axel-op/googlejavaformat-action@v3
       - name: SonarQube Scan
-        uses: kitabisa/sonarqube-action@v1.2.1
-        with:
-          host: ${{ secrets.SONARQUBE_HOST }}
-          login: ${{ secrets.SONARQUBE_TOKEN }}
+        env:
+          SONAR_TOKEN: ${{ secrets.SONARQUBE_TOKEN }}
+        run: mvn verify sonar:sonar \
+          -Dsonar.host.url=${{ secrets.SONARQUBE_HOST }} \
+          -Dsonar.organization=map7000 \
+          -Dsonar.projectKey=map7000_timeskeeper
