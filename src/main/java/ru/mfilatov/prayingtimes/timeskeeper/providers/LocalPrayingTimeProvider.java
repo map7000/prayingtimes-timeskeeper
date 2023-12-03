@@ -12,7 +12,6 @@ public class LocalPrayingTimeProvider implements PrayingTimesProvider{
     @Override
     public PrayingTimes getTimesByCoordinates(double latitude, double longitude, String method) {
         double timezone = 10;
-        // Test Prayer times here
         PrayTime prayers = new PrayTime();
 
         prayers.setTimeFormat(prayers.Time24);
