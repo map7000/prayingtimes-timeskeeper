@@ -11,18 +11,26 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import ru.mfilatov.prayingtimes.timeskeeper.clients.GeoTimeZoneClient;
+import ru.mfilatov.prayingtimes.timeskeeper.clients.OpenStreetMapSearchClient;
 import ru.mfilatov.prayingtimes.timeskeeper.model.Coordinates;
 import ru.mfilatov.prayingtimes.timeskeeper.providers.GeoTimeZoneProvider;
 
 @SpringBootTest
-public class GeoTimeZoneProviderTest {
+public class OpenStreetMapClientTestTest {
     @Autowired
-    GeoTimeZoneClient timeZoneClient;
+    OpenStreetMapSearchClient openStreetMapSearchClient;
 
     @Test
-    void test(){
-        var timeZoneProvider = new GeoTimeZoneProvider(timeZoneClient);
-        var tz = timeZoneProvider.getTimeZone(new Coordinates(55.7505412,37.6174782));
-        assertThat(tz.utc()).isEqualTo(3);
+    void getCityLocationJsonV2Test(){
+        var response = openStreetMapSearchClient.getCityLocation(
+                "moscow",
+                "Russia",
+                "jsonv2",
+                "1"
+        ).getFirst();
+
+        assertThat(response.lat()).isEqualTo(55.7505412);
+        assertThat(response.lon()).isEqualTo(37.6174782);
+        assertThat(response.name()).isEqualTo("Москва");
     }
 }

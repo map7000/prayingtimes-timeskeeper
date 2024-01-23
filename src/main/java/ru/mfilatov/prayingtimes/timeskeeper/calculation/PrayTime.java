@@ -53,6 +53,8 @@ public class PrayTime {
     private int Egypt; // Egyptian General Authority of Survey
     private int Custom; // Custom Setting
     private int Tehran; // Institute of Geophysics, University of Tehran
+
+    private int Moscow;
     // Juristic Methods
     public int Shafii; // Shafii (standard)
     private int Hanafi; // Hanafi
@@ -102,7 +104,8 @@ public class PrayTime {
         this.setMakkah(4); // Umm al-Qura, Makkah
         this.setEgypt(5); // Egyptian General Authority of Survey
         this.setTehran(6); // Institute of Geophysics, University of Tehran
-        this.setCustom(7); // Custom Setting
+        this.setMoscow(7); // Institute of Geophysics, University of Tehran
+        this.setCustom(8); // Custom Setting
 
         // Juristic Methods
         this.setShafii(0); // Shafii (standard)
@@ -185,6 +188,10 @@ public class PrayTime {
         // Tehran
         double[] Tvalues = {17.7,0,4.5,0,14};
         methodParams.put(Integer.valueOf(this.getTehran()), Tvalues);
+
+        // Moscow
+        double[] Mvalues = {16,0,0,0,15};
+        methodParams.put(Integer.valueOf(this.getMoscow()), Mvalues);
 
         // Custom
         double[] Cvalues = {18,1,0,0,17};
@@ -700,15 +707,15 @@ public class PrayTime {
      * @param args
      */
     public static void main(String[] args) {
-        double latitude = -37.823689;
-        double longitude = 145.121597;
-        double timezone = 10;
+        double latitude = 55.741469;
+        double longitude = 37.615561;
+        double timezone = 3;
         // Test Prayer times here
         PrayTime prayers = new PrayTime();
 
         prayers.setTimeFormat(prayers.Time24);
-        prayers.setCalcMethod(prayers.Jafari);
-        prayers.setAsrJuristic(prayers.Shafii);
+        prayers.setCalcMethod(prayers.Moscow);
+//        prayers.setAsrJuristic(prayers.Hanafi);
         prayers.setAdjustHighLats(prayers.AngleBased);
         int[] offsets = {0, 0, 0, 0, 0, 0, 0}; // {Fajr,Sunrise,Dhuhr,Asr,Sunset,Maghrib,Isha}
         prayers.tune(offsets);
@@ -861,6 +868,13 @@ public class PrayTime {
 
     private void setTehran(int tehran) {
         Tehran = tehran;
+    }
+
+    private int getMoscow() {
+        return Moscow;
+    }
+    private void setMoscow(int moscow) {
+        Moscow = moscow;
     }
 
     private int getShafii() {

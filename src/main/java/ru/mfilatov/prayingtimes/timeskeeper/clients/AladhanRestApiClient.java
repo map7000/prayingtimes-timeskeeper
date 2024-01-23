@@ -11,7 +11,7 @@ import ru.mfilatov.prayingtimes.timeskeeper.model.aladhan.AladhanTimingsByCity;
 
 @FeignClient(value = "aladhanClient", url = "https://api.aladhan.com/")
 public interface AladhanRestApiClient {
-  @GetMapping(path = "v1/timingsByCity/{day})")
+  @GetMapping(path = "v1/timingsByCity/{day}")
   AladhanTimingsByCity getTimingsByCity(
       @PathVariable("day") String day,
       @RequestParam(value = "city") String city,
