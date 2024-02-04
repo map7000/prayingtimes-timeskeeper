@@ -1,3 +1,7 @@
+/*
+ * Copyright 2023 Mikhail Filatov
+ * SPDX-License-Identifier: Apache-2.0
+ */
 package ru.mfilatov.prayingtimes.timeskeeper.clients;
 
 import org.springframework.cloud.openfeign.FeignClient;
@@ -9,11 +13,10 @@ import java.util.List;
 
 @FeignClient(value = "openStreetMapSearchClient", url = "https://nominatim.openstreetmap.org/")
 public interface OpenStreetMapSearchClient {
-    //?q=moscow&format=jsonv2&addressdetails=1&featureType=city&countrycodes=ru
-    @GetMapping(path = "search")
-    List<SearchJsonV2> getCityLocation(
-            @RequestParam(value = "city") String city,
-            @RequestParam(value = "country") String country,
-            @RequestParam(value = "format") String format,
-            @RequestParam(value = "addressdetails") String addressdetails);
+  @GetMapping(path = "search")
+  List<SearchJsonV2> getCityLocation(
+      @RequestParam(value = "city") String city,
+      @RequestParam(value = "country") String country,
+      @RequestParam(value = "format") String format,
+      @RequestParam(value = "addressdetails") String addressdetails);
 }
