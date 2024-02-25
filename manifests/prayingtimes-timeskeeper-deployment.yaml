@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: prayingtymes-timeskeeper-deployment
+  labels:
+    app: prayingtymes-timeskeeper
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: prayingtymes-timeskeeper
+  template:
+    metadata:
+      labels:
+        app: prayingtymes-timeskeeper
+    spec:
+      containers:
+        - name: telegrambot
+          image: docker.io/map7000/prayingtimes-timeskeeper:0.0.1.SNAPSHOT
+          ports:
+            - containerPort: 8080
+          imagePullPolicy: Always
+          env:
+            - name: JDK_JAVA_OPTIONS
+              valueFrom:
+                configMapKeyRef:
+                  name: prayingtymes-timeskeeper-config
+                  key: java_options
