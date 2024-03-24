@@ -61,6 +61,12 @@
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-core</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>ru.mfilatov.prayingtimes</groupId>
+            <artifactId>calculator</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
+        </dependency>
     </dependencies>
     <dependencyManagement>
         <dependencies>
