@@ -5,17 +5,17 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.2.1</version>
+        <version>3.2.5</version>
         <relativePath/>
     </parent>
-    <groupId>ru.mfilatov.prayingtimes</groupId>
-    <artifactId>timeskeeper</artifactId>
+    <groupId>ru.mfilatov</groupId>
+    <artifactId>prayingtimes-timeskeeper</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>timeskeeper</name>
     <description>Praying times timekeeper</description>
     <properties>
-        <java.version>21</java.version>
-        <spring-cloud.version>2023.0.0</spring-cloud.version>
+        <java.version>22</java.version>
+        <spring-cloud.version>2023.0.1</spring-cloud.version>
         <mapstruct.version>1.5.5.Final</mapstruct.version>
     </properties>
     <dependencies>
@@ -63,9 +63,9 @@
         </dependency>
 
         <dependency>
-            <groupId>ru.mfilatov.prayingtimes</groupId>
-            <artifactId>calculator</artifactId>
-            <version>1.0.0-SNAPSHOT</version>
+            <groupId>ru.mfilatov</groupId>
+            <artifactId>prayingtimes-calculator</artifactId>
+            <version>0.1.1</version>
         </dependency>
     </dependencies>
     <dependencyManagement>
@@ -97,7 +97,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.12.1</version>
+                <version>3.13.0</version>
                 <configuration>
                     <source>${java.version}</source>
                     <target>${java.version}</target>
@@ -110,7 +110,7 @@
                         <path>
                             <groupId>org.projectlombok</groupId>
                             <artifactId>lombok</artifactId>
-                            <version>1.18.30</version>
+                            <version>1.18.32</version>
                         </path>
                         <path>
                             <groupId>org.projectlombok</groupId>

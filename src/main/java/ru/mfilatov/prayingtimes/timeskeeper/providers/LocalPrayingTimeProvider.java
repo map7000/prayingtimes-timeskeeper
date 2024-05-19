@@ -5,11 +5,10 @@
 package ru.mfilatov.prayingtimes.timeskeeper.providers;
 
 import java.time.LocalDate;
-import java.time.OffsetDateTime;
 import org.springframework.stereotype.Service;
-import ru.mfilatov.PrayingTimesCalculator;
-import ru.mfilatov.enums.CalculationMethods;
-import ru.mfilatov.functions.Times;
+import ru.mfilatov.prayingtimes.calculator.PrayingTimesCalculator;
+import ru.mfilatov.prayingtimes.calculator.enums.CalculationMethods;
+import ru.mfilatov.prayingtimes.calculator.model.Times;
 import ru.mfilatov.prayingtimes.timeskeeper.model.Coordinates;
 import ru.mfilatov.prayingtimes.timeskeeper.model.PrayingTimes;
 import ru.mfilatov.prayingtimes.timeskeeper.model.TimeZone;
@@ -20,11 +19,11 @@ public class LocalPrayingTimeProvider implements PrayingTimesProvider {
   @Override
   public PrayingTimes getTimesByCoordinates(
       Coordinates coordinates, TimeZone timeZone, Integer method) {
-    double timezone = timeZone.utc();
+    var timezone = timeZone.utc();
     PrayingTimesCalculator calculator =
         new PrayingTimesCalculator(
-            OffsetDateTime.now(),
-            timeZone.utc(),
+            LocalDate.now(),
+            timezone,
             coordinates.latitude(),
             coordinates.longitude(),
             CalculationMethods.RUSSIA);
@@ -33,14 +32,14 @@ public class LocalPrayingTimeProvider implements PrayingTimesProvider {
 
     return new PrayingTimes(
         LocalDate.now().toString(),
-        timeZone.utc().toString(),
+        timezone.toString(),
         "Spiritual Administration of Muslims of Russia",
-        calculator.getFormattedTime(times.fajr()),
-        calculator.getFormattedTime(times.sunrise()),
-        calculator.getFormattedTime(times.dhuhr()),
-        calculator.getFormattedTime(times.asr()),
-        calculator.getFormattedTime(times.sunset()),
-        calculator.getFormattedTime(times.maghrib()),
-        calculator.getFormattedTime(times.isha()));
+        times.fajr().toString(),
+        times.sunrise().toString(),
+        times.dhuhr().toString(),
+        times.asr().toString(),
+        times.sunset().toString(),
+        times.maghrib().toString(),
+        times.isha().toString());
   }
 }
