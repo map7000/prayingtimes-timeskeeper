@@ -5,4 +5,4 @@ metadata:
   labels:
     app: prayingtymes-timeskeeper
 data:
-  java_options: "-Dspring.config.location=classpath:/application.yaml -XX:InitialRAMPercentage=25.0 -XX:MaxRAMPercentage=75.0"
+  java_options: {{ .Values.javaOptions | quote }}

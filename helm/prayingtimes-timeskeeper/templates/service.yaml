@@ -1,15 +1,12 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "prayingtimes-timeskeeper.fullname" . }}
+  name: prayingtymes-timeskeeper-service
   labels:
-    {{- include "prayingtimes-timeskeeper.labels" . | nindent 4 }}
+    app: prayingtymes-timeskeeper
 spec:
-  type: {{ .Values.service.type }}
-  ports:
-    - port: {{ .Values.service.port }}
-      targetPort: http
-      protocol: TCP
-      name: http
   selector:
-    {{- include "prayingtimes-timeskeeper.selectorLabels" . | nindent 4 }}
+    app: prayingtymes-timeskeeper
+  ports:
+    - name: http-8080
+      port: { { .Values.service.port } }
