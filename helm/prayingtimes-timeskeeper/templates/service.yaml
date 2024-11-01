@@ -9,4 +9,4 @@ spec:
     app: prayingtymes-timeskeeper
   ports:
     - name: http-8080
-      port: { { .Values.service.port } }
+      port: {{ .Values.service.port }}

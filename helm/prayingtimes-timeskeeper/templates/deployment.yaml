@@ -15,18 +15,25 @@ spec:
         app: prayingtymes-timeskeeper
     spec:
       containers:
-        - name: { { .Chart.Name } }
+        - name: {{ .Chart.Name }}
           securityContext:
-            { { - toYaml .Values.securityContext | nindent 12 } }
+            {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
-          imagePullPolicy: { { .Values.image.pullPolicy } }
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - name: http
-              containerPort: { { .Values.service.port } }
+              containerPort: {{ .Values.service.port }}
               protocol: TCP
+          volumeMounts:
+            - mountPath: /tmp
+              name: tmp-volume
           env:
             - name: JDK_JAVA_OPTIONS
               valueFrom:
                 configMapKeyRef:
                   name: prayingtymes-timeskeeper-config
                   key: java_options
+      volumes:
+        - name: tmp-volume
+          emptyDir:
+            sizeLimit: 100Mi
