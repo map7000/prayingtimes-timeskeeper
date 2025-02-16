@@ -32,7 +32,7 @@ public class TimesRestController {
 
   @GetMapping("/getTimesByLocation/{country}/{city}/{method}")
   PrayingTimes getTimesByLocation(
-      @PathVariable String country, @PathVariable String city, @PathVariable Integer method) {
+      @PathVariable String country, @PathVariable String city, @PathVariable String method) {
     var coordinates = coordinatesProvider.getCoordinatesByCityName(city, country);
     var timezone = timeZoneProvider.getTimeZone(coordinates);
 
@@ -41,7 +41,7 @@ public class TimesRestController {
 
   @GetMapping("/getTimesByCoordinates")
   PrayingTimes getTimesByCoordinates(
-          @RequestParam Double latitude, @RequestParam Double longitude, @RequestParam Integer method) {
+          @RequestParam Double latitude, @RequestParam Double longitude, @RequestParam String method) {
     var coordinates = new Coordinates(latitude, longitude);
     var timezone = timeZoneProvider.getTimeZone(coordinates);
 

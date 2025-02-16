@@ -18,7 +18,7 @@ public class LocalPrayingTimeProvider implements PrayingTimesProvider {
 
   @Override
   public PrayingTimes getTimesByCoordinates(
-      Coordinates coordinates, TimeZone timeZone, Integer method) {
+      Coordinates coordinates, TimeZone timeZone, String method) {
     var timezone = timeZone.utc();
     PrayingTimesCalculator calculator =
         new PrayingTimesCalculator(
@@ -26,14 +26,14 @@ public class LocalPrayingTimeProvider implements PrayingTimesProvider {
             timezone,
             coordinates.latitude(),
             coordinates.longitude(),
-            CalculationMethods.RUSSIA);
+            CalculationMethods.valueOf(method));
 
     Times times = calculator.calculate();
 
     return new PrayingTimes(
         LocalDate.now().toString(),
         timezone.toString(),
-        "Spiritual Administration of Muslims of Russia",
+        CalculationMethods.valueOf(method).getName(),
         times.fajr().toString(),
         times.sunrise().toString(),
         times.dhuhr().toString(),
