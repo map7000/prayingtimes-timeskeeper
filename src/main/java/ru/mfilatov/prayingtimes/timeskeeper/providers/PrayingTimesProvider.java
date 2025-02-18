@@ -9,5 +9,5 @@ import ru.mfilatov.prayingtimes.timeskeeper.model.PrayingTimes;
 import ru.mfilatov.prayingtimes.timeskeeper.model.TimeZone;
 
 public interface PrayingTimesProvider {
-  PrayingTimes getTimesByCoordinates(Coordinates coordinates, TimeZone timeZone, Integer method);
+  PrayingTimes getTimesByCoordinates(Coordinates coordinates, TimeZone timeZone, String method);
 }

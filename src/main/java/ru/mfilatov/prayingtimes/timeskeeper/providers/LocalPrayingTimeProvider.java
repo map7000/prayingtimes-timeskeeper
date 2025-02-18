@@ -5,39 +5,61 @@
 package ru.mfilatov.prayingtimes.timeskeeper.providers;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
+import java.time.ZoneId;
+import java.time.ZoneOffset;
+import java.time.format.DateTimeFormatter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ru.mfilatov.prayingtimes.timeskeeper.calculation.PrayTime;
+import ru.mfilatov.prayingtimes.calculator.enums.CalculationMethods;
+import ru.mfilatov.prayingtimes.calculator.model.Times;
 import ru.mfilatov.prayingtimes.timeskeeper.model.Coordinates;
 import ru.mfilatov.prayingtimes.timeskeeper.model.PrayingTimes;
 import ru.mfilatov.prayingtimes.timeskeeper.model.TimeZone;
 
 @Service
-public class LocalPrayingTimeProvider implements PrayingTimesProvider{
+public class LocalPrayingTimeProvider implements PrayingTimesProvider {
 
-    @Override
-    public PrayingTimes getTimesByCoordinates(Coordinates coordinates, TimeZone timeZone, Integer method) {
-        double timezone = timeZone.utc();
-        PrayTime prayers = new PrayTime();
+  private final PrayingTimesCalculatorImpl calculator;
 
-        prayers.setTimeFormat(prayers.Time24);
-        prayers.setCalcMethod(7);
-        prayers.setAdjustHighLats(prayers.AngleBased);
-        int[] offsets = {0, 0, 0, 0, 0, 0, 0}; // {Fajr,Sunrise,Dhuhr,Asr,Sunset,Maghrib,Isha}
-        prayers.tune(offsets);
+  private static final DateTimeFormatter formater = DateTimeFormatter.ofPattern("HH:mm");
 
+  @Autowired
+  LocalPrayingTimeProvider(PrayingTimesCalculatorImpl calculator) {
+    this.calculator = calculator;
+  }
 
-        Date now = new Date();
-        Calendar cal = Calendar.getInstance();
-        cal.setTime(now);
+  @Override
+  public PrayingTimes getTimesByCoordinates(
+      Coordinates coordinates, TimeZone timeZone, String method) {
+    var timezone = timeZone.utc();
+    var time = LocalDate.now(ZoneId.ofOffset("UTC", ZoneOffset.ofHours(timezone)));
 
-        ArrayList<String> prayerTimes = prayers.getPrayerTimes(cal,
-                coordinates.latitude(), coordinates.longitude(), timezone);
+    Times times = calculator.calculate(coordinates, time, timeZone, method);
 
-        var response = new PrayingTimes(LocalDate.now().toString(), timeZone.utc().toString(), "Spiritual Administration of Muslims of Russia",
-                prayerTimes.get(0), prayerTimes.get(1), prayerTimes.get(2),prayerTimes.get(3), prayerTimes.get(4), prayerTimes.get(5), prayerTimes.get(6));
-        return response;
+    return new PrayingTimes(
+        time.toString(),
+        formatTimezone(timezone),
+        CalculationMethods.valueOf(method).getName(),
+        times.imsak().format(formater),
+        times.fajr().format(formater),
+        times.sunrise().format(formater),
+        times.dhuhr().format(formater),
+        times.asr().format(formater),
+        times.sunset().format(formater),
+        times.maghrib().format(formater),
+        times.isha().format(formater),
+        times.midnight().format(formater));
+  }
+
+  private String formatTimezone(Integer timezone) {
+    String result;
+    if (timezone > 0) {
+      result = "+" + timezone;
+    } else if (timezone < 0) {
+      result = timezone.toString();
+    } else {
+      result = "UTC";
     }
+    return result;
+  }
 }
