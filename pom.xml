@@ -17,6 +17,7 @@
         <java.version>23</java.version>
         <spring-cloud.version>2024.0.0</spring-cloud.version>
         <mapstruct.version>1.6.2</mapstruct.version>
+        <spotless.version>2.44.3</spotless.version>
     </properties>
     <dependencies>
         <dependency>
@@ -119,6 +120,19 @@
                             <version>0.2.0</version>
                         </path>
                     </annotationProcessorPaths>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>com.diffplug.spotless</groupId>
+                <artifactId>spotless-maven-plugin</artifactId>
+                <version>${spotless.version}</version>
+                <configuration>
+                    <java>
+                        <cleanthat />
+                        <googleJavaFormat />
+                        <removeUnusedImports />
+                        <formatAnnotations />
+                    </java>
                 </configuration>
             </plugin>
         </plugins>

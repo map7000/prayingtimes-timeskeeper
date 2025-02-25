@@ -4,12 +4,11 @@
  */
 package ru.mfilatov.prayingtimes.timeskeeper.clients;
 
+import java.util.List;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import ru.mfilatov.prayingtimes.timeskeeper.model.openstreetmap.SearchJsonV2;
-
-import java.util.List;
 
 @FeignClient(value = "openStreetMapSearchClient", url = "https://nominatim.openstreetmap.org/")
 public interface OpenStreetMapSearchClient {

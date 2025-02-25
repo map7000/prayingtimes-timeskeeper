@@ -4,7 +4,6 @@
  */
 package ru.mfilatov.prayingtimes.timeskeeper.controller;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,7 +23,9 @@ public class TimesRestController {
 
   @Autowired
   public TimesRestController(
-      CoordinatesProvider coordinatesProvider, TimeZoneProvider timeZoneProvider, PrayingTimesProvider prayingTimesProvider) {
+      CoordinatesProvider coordinatesProvider,
+      TimeZoneProvider timeZoneProvider,
+      PrayingTimesProvider prayingTimesProvider) {
     this.coordinatesProvider = coordinatesProvider;
     this.timeZoneProvider = timeZoneProvider;
     this.prayingTimesProvider = prayingTimesProvider;
@@ -41,7 +42,7 @@ public class TimesRestController {
 
   @GetMapping("/getTimesByCoordinates")
   PrayingTimes getTimesByCoordinates(
-          @RequestParam Double latitude, @RequestParam Double longitude, @RequestParam String method) {
+      @RequestParam Double latitude, @RequestParam Double longitude, @RequestParam String method) {
     var coordinates = new Coordinates(latitude, longitude);
     var timezone = timeZoneProvider.getTimeZone(coordinates);
 
